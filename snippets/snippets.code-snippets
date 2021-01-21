@@ -1,0 +1,103 @@
+{
+  "New QueryHandler": {
+    "prefix": "nqh",
+    "body": [
+      "public class $QueryHandler : QueryHandlerBase<$Query, $Entity>",
+      "{",
+      "    private readonly ApiDbContext context;",
+      "    public $QueryHandler(ApiDbContext context) : base(context)",
+      "    {",
+      "        this.context = context;",
+      "    }",
+      "    public override async Task<$Entity> Execute($Query input)",
+      "    {",
+      "",
+      "    }",
+      "}"
+    ],
+    "description": "Creates new Query Handler"
+  },
+  "New CommandHandler": {
+    "prefix": "nch",
+    "body": [
+      "public class $CommandHandler : CommandHandlerBase<$Command, $Entity>",
+      "{",
+      "    private readonly ApiDbContext context;",
+      "    private readonly IMapper mapper;",
+      "    public $CommandHandler(ApiDbContext context, IMapper mapper) : base(context)",
+      "    {",
+      "        this.context = context;",
+      "        this.mapper = mapper;",
+      "    }",
+      "    public override async Task<$Entity> Execute($Command input)",
+      "    {",
+      "",
+      "    }",
+      "}"
+    ],
+    "description": "Creates new Command Handler"
+  },
+  "New Command": {
+    "prefix": "nc",
+    "body": [
+      "public class $Command : ICommand<$Entity>",
+      "{",
+      "    public $Command()",
+      "    {",
+      " ",
+      "    }",
+      "}"
+    ],
+    "description": "Creates new Command Handler"
+  },
+  "New Controller": {
+    "prefix": "nctrl",
+    "body": [
+      "public class $Controller : CommandControllerBase",
+      "{",
+      "    public $Controller(Handler handler, IMapper mapper) : base(handler, mapper) { }",
+      "}",
+    ],
+    "description": "Creates new Controller"
+  },
+  "New Get Request": {
+    "prefix": "nget",
+    "body": [
+      "/// <summary>",
+      "/// $Description",
+      "/// </summary>",
+      "[HttpGet($Url)]",
+      "public async Task<$Representation> Get$Entity(Guid id)",
+      "{",
+      "    return await Execute<$Entity, $Representation>(new Get${Entity}Query(id));",
+      "}"
+    ]
+  },
+  "New Post Request": {
+    "prefix": "npost",
+    "body": [
+      "/// <summary>",
+      "/// $Description",
+      "/// </summary>",
+      "[HttpPost($Url)]",
+      "public async Task<$Representation> Create$Entity([FromBody] $Validator input)",
+      "{",
+      "    return await Execute<$Entity, $Representation>(input);",
+      "}"
+    ]
+  },
+  "New Patch Request": {
+    "prefix": "npatch",
+    "body": [
+      "/// <summary>",
+      "/// $Description",
+      "/// </summary>",
+      "[HttpPatch(\"{id}\")]",
+      "public async Task<${Entity}Representation> Update$Entity([FromBody] ${Entity}UpdateValidator input, Guid id)",
+      "{",
+      "    input.Id = id;",
+      "    return await Execute<$Entity, ${Entity}Representation>(input);",
+      "}"
+    ]
+  }
+}
